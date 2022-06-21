@@ -24,7 +24,6 @@ public class Receiver {
 
 	@Bean
 	TopicExchange exchange() {
-		
 		return new TopicExchange(Topics.TOPIC_TEXT);
 	}
 
@@ -37,6 +36,7 @@ public class Receiver {
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
 			MessageListenerAdapter listenerAdapter) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+		
 		container.setConnectionFactory(connectionFactory);
 		container.setQueueNames(RabbitMqQueue.QUEUE_NAME);
 		container.setMessageListener(listenerAdapter);
