@@ -32,13 +32,13 @@ public class Controller {
 
 	@PostMapping("asString")
 	public ResponseEntity<?> create(@RequestBody String body) {
-		rabbitTemplate.convertAndSend(Exchange.TOPIC_TEXT, RoutingKey.FOO_BAR_FIZZ, body);
+		rabbitTemplate.convertAndSend(RabbitMqQueue.Topics.MY_EXCHANGE, "topic", body);
 		return ResponseEntity.ok(body);
 	}
 
 	@PostMapping("object")
 	public ResponseEntity<?> create(@RequestBody SimpleMessage body) {
-		rabbitTemplate.convertAndSend(Exchange.TOPIC_TEXT, RoutingKey.FOO_BAR_FIZZ, body);
+		rabbitTemplate.convertAndSend(RabbitMqQueue.Topics.MY_EXCHANGE, "topic", body);
 		return ResponseEntity.ok(body);
 	}
 }

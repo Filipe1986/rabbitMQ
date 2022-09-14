@@ -2,7 +2,7 @@ package com.filipe.rabbitmq.config;
 
 import com.filipe.rabbitmq.constants.Constants;
 import com.filipe.rabbitmq.message.Listener;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
@@ -16,6 +16,29 @@ public class RabbitMQConfig {
     @Bean
     Queue myQueue(){
         return new Queue(Constants.RabbitMqQueue.QUEUE_NAME, true);
+    }
+
+    @Bean
+    Exchange myTestExchange() {
+        return new TopicExchange(Constants.RabbitMqQueue.Topics.TOPIC_TEXT);
+    }
+
+
+    @Bean
+    Exchange myExchange() {
+        return ExchangeBuilder.topicExchange(Constants.RabbitMqQueue.Topics.MY_EXCHANGE)
+                .durable(true)
+                .build();
+    }
+
+    @Bean
+    Binding myBinding() {
+/*        return new Binding(Constants.RabbitMqQueue.QUEUE_NAME, Binding.DestinationType.QUEUE
+                , Constants.RabbitMqQueue.Topics.MY_EXCHANGE, "topic", null);*/
+        return BindingBuilder.bind(myQueue())
+                .to(myExchange())
+                .with("topic")
+                .noargs();
     }
 
     @Bean
