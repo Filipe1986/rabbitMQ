@@ -7,27 +7,17 @@ package com.filipe.rabbitmq.constants;
  * Class to keep Constants
  */
 public class Constants {
-
-
-
+	
 	private Constants() {}
-
-	public static class RoutingKey {
-		private RoutingKey() {}
-
-		public static final String FOO_BAR_FIZZ = "foo.bar.fizz";
-
-	}
 	
 	public static class Url {
 		private Url() {}
-		
 		public static final String SEARCH_PATH = "/search";
 
 	}
 	
-	public static class Exchange {
-		private Exchange() {}
+	public static class Topics{
+		private Topics() {}
 		public static final String TOPIC_TEXT = "topic-text";
 		public static final String TOPIC_JSON = "topic-json";
 	}

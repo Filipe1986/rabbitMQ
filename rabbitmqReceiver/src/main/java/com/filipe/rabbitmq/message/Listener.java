@@ -14,12 +14,12 @@ import com.filipe.rabbitmq.constants.Constants.RabbitMqQueue;
 import com.filipe.rabbitmq.constants.Constants.Topics;
 
 @Component
-public class Receiver {
+public class Listener {
 
 
 	@Bean
 	Queue queue() {
-		return new Queue(RabbitMqQueue.QUEUE_NAME, false);
+		return new Queue(RabbitMqQueue.QUEUE_NAME, true);
 	}
 
 	@Bean
@@ -45,7 +45,7 @@ public class Receiver {
 	}
 
 	@Bean
-	MessageListenerAdapter listenerAdapter(Receiver receiver) {
+	MessageListenerAdapter listenerAdapter(Listener receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
 	}
 	
