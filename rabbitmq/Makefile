@@ -6,3 +6,6 @@ docker-down:
 	docker-compose -f ./docker/docker-compose.yml down
 
 docker-refresh: docker-down docker-up
+
+rabbitMQ-home:
+	xdg-open http://localhost:15672/  & echo 'user and password : guest'

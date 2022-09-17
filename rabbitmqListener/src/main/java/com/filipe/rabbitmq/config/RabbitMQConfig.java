@@ -14,34 +14,42 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     @Bean
-    Queue myQueue(){
-        return new Queue(Constants.RabbitMqQueue.QUEUE_NAME, true);
+    Queue topicQueue(){
+        return new Queue(Constants.RabbitMqQueue.TOPIC_QUEUE, true);
     }
 
     @Bean
-    Exchange myTestExchange() {
-        return new TopicExchange(Constants.RabbitMqQueue.Topics.TOPIC_TEXT);
+    Queue topicQueue2(){
+        return new Queue(Constants.RabbitMqQueue.TOPIC_QUEUE_2 , true);
     }
 
-
     @Bean
-    Exchange myExchange() {
-        return ExchangeBuilder.topicExchange(Constants.RabbitMqQueue.Topics.MY_EXCHANGE)
-                .durable(true)
+    Exchange topicExchange(){
+        return ExchangeBuilder
+                .topicExchange(Constants.RabbitMqQueue.Exchange.TOPIC_EXCHANGE)
+                .autoDelete()
                 .build();
     }
-
     @Bean
-    Binding myBinding() {
-/*        return new Binding(Constants.RabbitMqQueue.QUEUE_NAME, Binding.DestinationType.QUEUE
-                , Constants.RabbitMqQueue.Topics.MY_EXCHANGE, "topic", null);*/
-        return BindingBuilder.bind(myQueue())
-                .to(myExchange())
-                .with("topic")
+    Binding topicBinding() {
+        return BindingBuilder
+                .bind(topicQueue())
+                .to(topicExchange())
+                .with(Constants.RabbitMqQueue.Topics.TOPIC)
                 .noargs();
     }
 
     @Bean
+    Binding topicBinding2() {
+        return BindingBuilder
+                .bind(topicQueue2())
+                .to(topicExchange())
+                .with(Constants.RabbitMqQueue.Topics.TOPIC_2)
+                .noargs();
+    }
+
+
+   @Bean
     ConnectionFactory connectionFactory(){
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
         cachingConnectionFactory.setUsername("guest");
@@ -54,7 +62,7 @@ public class RabbitMQConfig {
     MessageListenerContainer messageListenerContainer(){
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
-        container.setQueues(myQueue());
+        container.setQueues(topicQueue(), topicQueue2());
         container.setMessageListener(new Listener());
 
         return container;
