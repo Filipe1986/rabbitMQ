@@ -17,36 +17,9 @@ public class Controller {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-/*	@GetMapping()
-	public ResponseEntity<?> stringMessage(@RequestParam(required = true) String entry) {
-		rabbitTemplate.convertAndSend(RabbitMqQueue.Topics.TOPIC_TEXT, RabbitMqQueue.RoutingKey.FOO_BAR_FIZZ, entry);
-		return ResponseEntity.ok(entry);
-	}
-
-	@PostMapping("asString")
-	public ResponseEntity<?> create(@RequestBody String body) {
-		rabbitTemplate.convertAndSend(RabbitMqQueue.Topics.MY_EXCHANGE, "topic", body);
-		return ResponseEntity.ok(body);
-	}
-
-
-
-	@PostMapping("object")
-	public ResponseEntity<?> create(@RequestBody SimpleMessage body) {
-		rabbitTemplate.convertAndSend(RabbitMqQueue.Topics.MY_EXCHANGE, "topic", body);
-		return ResponseEntity.ok(body);
-	}
-
-*/
 	@PostMapping("topic")
-	public ResponseEntity<?> topic(@RequestBody String body) {
-		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.TOPIC_EXCHANGE, RabbitMqQueue.Topics.TOPIC + "_2", body);
-		return ResponseEntity.ok(body);
-	}
-
-	@PostMapping("topic2")
-	public ResponseEntity<?> topic2(@RequestBody String body) {
-		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.TOPIC_EXCHANGE, RabbitMqQueue.Topics.TOPIC_2 , body);
+	public ResponseEntity<?> topic(@RequestBody SimpleMessage body) {
+		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.TOPIC_EXCHANGE, body.getTopic(), body.toString());
 		return ResponseEntity.ok(body);
 	}
 }

@@ -8,6 +8,8 @@ public class SimpleMessage implements Serializable {
     private String destine;
     private String content;
 
+    private String topic;
+
     public String getOrigin() {
         return origin;
     }
@@ -31,12 +33,21 @@ public class SimpleMessage implements Serializable {
         this.content = content;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     @Override
     public String toString() {
         return "SimpleMessage{" +
                 "origin='" + origin + '\'' +
                 ", destine='" + destine + '\'' +
                 ", content='" + content + '\'' +
+                ", topic='" + topic + '\'' +
                 '}';
     }
 }

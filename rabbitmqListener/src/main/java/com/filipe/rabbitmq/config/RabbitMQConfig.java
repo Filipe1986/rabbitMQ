@@ -1,7 +1,6 @@
 package com.filipe.rabbitmq.config;
 
 import com.filipe.rabbitmq.constants.Constants;
-import com.filipe.rabbitmq.message.Listener;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -63,7 +62,6 @@ public class RabbitMQConfig {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
         container.setQueues(topicQueue(), topicQueue2());
-        container.setMessageListener(new Listener());
 
         return container;
     }
