@@ -1,5 +1,6 @@
 package com.filipe.rabbitmq.message;
 
+import com.filipe.domain.Constants.Constants.RabbitMqQueue;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -10,8 +11,7 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.filipe.rabbitmq.constants.Constants.RabbitMqQueue;
-import com.filipe.rabbitmq.constants.Constants.Topics;
+
 
 @Component
 public class Listener {
@@ -24,7 +24,7 @@ public class Listener {
 
 	@Bean
 	TopicExchange exchange() {
-		return new TopicExchange(Topics.TOPIC_TEXT);
+		return new TopicExchange(RabbitMqQueue.Topics.TOPIC_TEXT);
 	}
 
 	@Bean

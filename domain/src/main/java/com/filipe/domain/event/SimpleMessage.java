@@ -1,4 +1,4 @@
-package com.filipe.rabbitmq.domain.event;
+package com.filipe.domain.event;
 
 import java.io.Serializable;
 
