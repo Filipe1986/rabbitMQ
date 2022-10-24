@@ -7,8 +7,10 @@ public class SimpleMessage implements Serializable {
     private String origin;
     private String destine;
     private String content;
-
     private String topic;
+    private String exchange;
+    private String routingKey;
+    private String queue;
 
     public String getOrigin() {
         return origin;
@@ -41,6 +43,30 @@ public class SimpleMessage implements Serializable {
         this.topic = topic;
     }
 
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
+    }
+
+    public String getRoutingKey() {
+        return routingKey;
+    }
+
+    public void setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
+    }
+
+    public String getQueue() {
+        return queue;
+    }
+
+    public void setQueue(String queue) {
+        this.queue = queue;
+    }
+
     @Override
     public String toString() {
         return "SimpleMessage{" +
@@ -48,6 +74,9 @@ public class SimpleMessage implements Serializable {
                 ", destine='" + destine + '\'' +
                 ", content='" + content + '\'' +
                 ", topic='" + topic + '\'' +
+                ", exchange='" + exchange + '\'' +
+                ", routingKey='" + routingKey + '\'' +
+                ", queue='" + queue + '\'' +
                 '}';
     }
 }

@@ -22,11 +22,33 @@ public class Controller {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	@PostMapping("topic")
-	public ResponseEntity<?> topic(@RequestBody SimpleMessage body) {
+	@PostMapping("direct")
+	public ResponseEntity<?> exchangeDirect(@RequestBody SimpleMessage body) {
 
 		logger.info(body.toString());
-		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.TOPIC_EXCHANGE, body.getTopic(), body);
+		body.setExchange(RabbitMqQueue.Exchange.DIRECT_EXCHANGE);
+		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.DIRECT_EXCHANGE, "routingKey", body);
 		return ResponseEntity.ok(body);
 	}
+
+	@PostMapping("topic")
+	public ResponseEntity<?> exchangeTopic(@RequestBody SimpleMessage body) {
+
+		logger.info(body.toString());
+		body.setExchange(RabbitMqQueue.Exchange.TOPIC_EXCHANGE);
+		body.setRoutingKey(RabbitMqQueue.RoutingKey.ROUTING_KEY_1);
+		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.TOPIC_EXCHANGE, RabbitMqQueue.RoutingKey.ROUTING_KEY_1, body);
+		return ResponseEntity.ok(body);
+	}
+
+	@PostMapping("fanout")
+	public ResponseEntity<?> exchangeFanout(@RequestBody SimpleMessage body) {
+
+		logger.info(body.toString());
+		body.setExchange(RabbitMqQueue.Exchange.FANOUT_EXCHANGE);
+		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.FANOUT_EXCHANGE, "routingKey", body);
+		return ResponseEntity.ok(body);
+	}
+
+
 }

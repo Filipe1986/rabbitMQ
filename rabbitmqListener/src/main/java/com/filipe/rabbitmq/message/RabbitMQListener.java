@@ -2,7 +2,8 @@ package com.filipe.rabbitmq.message;
 
 import com.filipe.domain.constants.Constants;
 import com.filipe.domain.event.SimpleMessage;
-import org.springframework.amqp.core.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -10,18 +11,18 @@ import org.springframework.stereotype.Component;
 public class RabbitMQListener {
 
 
+	private static final Logger logger = LoggerFactory.getLogger(RabbitMQListener.class);
+
 	@RabbitListener(queues = Constants.RabbitMqQueue.TOPIC_QUEUE)
 	public void topicQueue(SimpleMessage message) {
-		System.out.println("topic:");
-		System.out.println(message);
-		System.out.println("end\n");
+		message.setQueue(Constants.RabbitMqQueue.TOPIC_QUEUE);
+		logger.info(message.toString());
+
 	}
 
-	@RabbitListener(queues = Constants.RabbitMqQueue.TOPIC_QUEUE_2)
-	public void topicQueue2(Message message) {
-		System.out.println("topicQueue2:");
-		System.out.println(new String(message.getBody()));
-		System.out.println("end\n");
-	}
+/*	@RabbitListener(queues = Constants.RabbitMqQueue.TOPIC_QUEUE_2)
+	public void topicQueue2(SimpleMessage message) {
+		logger.info(message.toString());
+	}*/
 
 }

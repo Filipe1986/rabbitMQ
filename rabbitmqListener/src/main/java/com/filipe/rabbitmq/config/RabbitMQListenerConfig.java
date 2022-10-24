@@ -10,42 +10,44 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitMQConfig {
+public class RabbitMQListenerConfig {
+
+
+    @Bean
+    Exchange topicExchange(){
+        return ExchangeBuilder
+                .topicExchange(Constants.RabbitMqQueue.Exchange.TOPIC_EXCHANGE)
+                .build();
+    }
 
     @Bean
     Queue topicQueue(){
         return new Queue(Constants.RabbitMqQueue.TOPIC_QUEUE, true);
     }
 
-    @Bean
+/*    @Bean
     Queue topicQueue2(){
         return new Queue(Constants.RabbitMqQueue.TOPIC_QUEUE_2 , true);
-    }
+    }*/
 
-    @Bean
-    Exchange topicExchange(){
-        return ExchangeBuilder
-                .topicExchange(Constants.RabbitMqQueue.Exchange.TOPIC_EXCHANGE)
-                .autoDelete()
-                .build();
-    }
+
     @Bean
     Binding topicBinding() {
         return BindingBuilder
                 .bind(topicQueue())
                 .to(topicExchange())
-                .with(Constants.RabbitMqQueue.Topics.TOPIC)
+                .with(Constants.RabbitMqQueue.RoutingKey.ROUTING_KEY_1)
                 .noargs();
     }
 
-    @Bean
+/*    @Bean
     Binding topicBinding2() {
         return BindingBuilder
                 .bind(topicQueue2())
                 .to(topicExchange())
                 .with(Constants.RabbitMqQueue.Topics.TOPIC_2)
                 .noargs();
-    }
+    }*/
 
 
    @Bean
@@ -61,7 +63,10 @@ public class RabbitMQConfig {
     MessageListenerContainer messageListenerContainer(){
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
-        container.setQueues(topicQueue(), topicQueue2());
+        container.setQueues(topicQueue());
+        container.setAcknowledgeMode(AcknowledgeMode.AUTO);
+
+        //container.setQueues(topicQueue(), topicQueue2());
 
         return container;
     }
