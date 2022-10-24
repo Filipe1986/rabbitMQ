@@ -1,6 +1,6 @@
 package com.filipe.rabbitmq.message;
 
-import com.filipe.domain.Constants.Constants.RabbitMqQueue;
+import com.filipe.domain.constants.Constants.RabbitMqQueue;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;

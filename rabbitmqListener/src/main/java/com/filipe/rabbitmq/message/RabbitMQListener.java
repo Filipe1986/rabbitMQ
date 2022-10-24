@@ -1,6 +1,6 @@
 package com.filipe.rabbitmq.message;
 
-import com.filipe.domain.Constants.Constants;
+import com.filipe.domain.constants.Constants;
 import com.filipe.domain.event.SimpleMessage;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

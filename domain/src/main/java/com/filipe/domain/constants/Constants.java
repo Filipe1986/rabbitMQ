@@ -1,4 +1,4 @@
-package com.filipe.domain.Constants;
+package com.filipe.domain.constants;
 
 /**
  *
@@ -10,21 +10,15 @@ public class Constants {
 
     private Constants() {}
 
-    public static class Url {
-        private Url() {}
-        public static final String SEARCH_PATH = "/search";
-
-    }
-
     public static class RabbitMqQueue{
+        private RabbitMqQueue() {}
+
         public static final String DIRECT_QUEUE = "directQueue";
         public static final String TOPIC_QUEUE = "topicQueue";
         public static final String TOPIC_QUEUE_2 = "topicQueue2";
-
-        private RabbitMqQueue() {}
         public static final String QUEUE_NAME = "queue";
-        public static final String EXAMPLE_QUEUE = "exampleQueue";
-        public static final String SECOND_QUEUE = "secondQueue";
+
+
 
 
         public static class Topics{
@@ -48,12 +42,25 @@ public class Constants {
             public static final String DIRECT_EXCHANGE = "directExchange";
         }
 
+        public class Queues {
+            Queues(){}
+            public static final String DIRECT_QUEUE = "directQueue";
+            public static final String TOPIC_QUEUE_0 = "topic-queue-0";
+            public static final String TOPIC_QUEUE_1 = "topic-queue-1";
+
+            public static final String FANOUT_QUEUE_0 = "fanout-queue-0";
+            public static final String FANOUT_QUEUE_1 = "fanout-queue-1";
+
+        }
+
         public class RoutingKey {
             public static final String FOO_BAR_FIZZ = "foo.bar.fizz";
 
             RoutingKey(){}
         }
     }
+
+
 
 
 }

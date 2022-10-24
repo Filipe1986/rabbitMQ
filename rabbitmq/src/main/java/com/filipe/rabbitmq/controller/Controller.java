@@ -1,6 +1,6 @@
 package com.filipe.rabbitmq.controller;
 
-import com.filipe.domain.Constants.Constants.RabbitMqQueue;
+import com.filipe.domain.constants.Constants.RabbitMqQueue;
 import com.filipe.domain.event.SimpleMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
