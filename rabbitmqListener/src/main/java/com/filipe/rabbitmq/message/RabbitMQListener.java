@@ -13,9 +13,9 @@ public class RabbitMQListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(RabbitMQListener.class);
 
-	@RabbitListener(queues = Constants.RabbitMqQueue.TOPIC_QUEUE)
+	@RabbitListener(queues = Constants.RabbitMqQueue.Queues.TOPIC_QUEUE)
 	public void topicQueue(SimpleMessage message) {
-		message.setQueue(Constants.RabbitMqQueue.TOPIC_QUEUE);
+		message.setQueue(Constants.RabbitMqQueue.Queues.TOPIC_QUEUE);
 		logger.info(message.toString());
 
 	}

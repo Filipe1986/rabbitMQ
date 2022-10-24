@@ -22,7 +22,7 @@ public class RabbitMQListenerConfig {
 
     @Bean
     Queue topicQueue(){
-        return new Queue(Constants.RabbitMqQueue.TOPIC_QUEUE, true);
+        return new Queue(Constants.RabbitMqQueue.Queues.TOPIC_QUEUE, true);
     }
 
 /*    @Bean

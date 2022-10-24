@@ -33,10 +33,10 @@ public class Controller {
 
 	@PostMapping("topic")
 	public ResponseEntity<?> exchangeTopic(@RequestBody SimpleMessage body) {
-
-		logger.info(body.toString());
+		
 		body.setExchange(RabbitMqQueue.Exchange.TOPIC_EXCHANGE);
 		body.setRoutingKey(RabbitMqQueue.RoutingKey.ROUTING_KEY_1);
+		logger.info(body.toString());
 		rabbitTemplate.convertAndSend(RabbitMqQueue.Exchange.TOPIC_EXCHANGE, RabbitMqQueue.RoutingKey.ROUTING_KEY_1, body);
 		return ResponseEntity.ok(body);
 	}
