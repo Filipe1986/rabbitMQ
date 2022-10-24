@@ -23,9 +23,4 @@ public class RabbitMQListener {
 
 	}
 
-/*	@RabbitListener(queues = Constants.RabbitMqQueue.TOPIC_QUEUE_2)
-	public void topicQueue2(SimpleMessage message) {
-		logger.info(message.toString());
-	}*/
-
 }
