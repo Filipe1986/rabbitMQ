@@ -16,6 +16,9 @@ public class RabbitMQListener {
 	@RabbitListener(queues = Constants.RabbitMqQueue.Queues.TOPIC_QUEUE)
 	public void topicQueue(SimpleMessage message) {
 		message.setQueue(Constants.RabbitMqQueue.Queues.TOPIC_QUEUE);
+		if(!message.getTopic().equals("topic")){
+			throw new IllegalArgumentException();
+		}
 		logger.info(message.toString());
 
 	}

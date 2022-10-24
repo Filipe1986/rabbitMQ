@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,13 +23,11 @@ public class RabbitMQListenerConfig {
 
     @Bean
     Queue topicQueue(){
-        return new Queue(Constants.RabbitMqQueue.Queues.TOPIC_QUEUE, true);
-    }
 
-/*    @Bean
-    Queue topicQueue2(){
-        return new Queue(Constants.RabbitMqQueue.TOPIC_QUEUE_2 , true);
-    }*/
+        return QueueBuilder.durable(Constants.RabbitMqQueue.Queues.TOPIC_QUEUE)
+                .withArgument("x-dead-letter-exchange", "dLTopicExchange")
+                .withArgument("x-dead-letter-routing-key", "routingKeyDeadLetter").build();
+    }
 
 
     @Bean
@@ -40,16 +39,6 @@ public class RabbitMQListenerConfig {
                 .noargs();
     }
 
-/*    @Bean
-    Binding topicBinding2() {
-        return BindingBuilder
-                .bind(topicQueue2())
-                .to(topicExchange())
-                .with(Constants.RabbitMqQueue.Topics.TOPIC_2)
-                .noargs();
-    }*/
-
-
    @Bean
     ConnectionFactory connectionFactory(){
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
@@ -60,14 +49,15 @@ public class RabbitMQListenerConfig {
     }
 
     @Bean
+    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
     MessageListenerContainer messageListenerContainer(){
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
         container.setQueues(topicQueue());
-        container.setAcknowledgeMode(AcknowledgeMode.AUTO);
-
-        //container.setQueues(topicQueue(), topicQueue2());
-
         return container;
     }
 
