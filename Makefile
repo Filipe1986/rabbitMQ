@@ -4,6 +4,9 @@ install:
 	cd rabbitmqReceiver && mvn clean install
 	cd rabbitmq && mvn clean install
 
+image:
+	cd rabbitmq && make image
+
 docker-up:
 	docker-compose -f ./docker/docker-compose.yml up -d
 docker-stop:

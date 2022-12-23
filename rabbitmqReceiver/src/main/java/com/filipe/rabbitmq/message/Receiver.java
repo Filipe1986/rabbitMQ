@@ -10,6 +10,8 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +46,7 @@ public class Receiver {
 		container.setConnectionFactory(connectionFactory);
 		container.setQueueNames(RabbitMqQueue.Queues.TOPIC_QUEUE_0);
 		container.setMessageListener(listenerAdapter);
-		
+
 		return container;
 	}
 
@@ -52,7 +54,12 @@ public class Receiver {
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
 	}
-	
+
+	@Bean
+	public MessageConverter jsonMessageConverter(){
+		return new Jackson2JsonMessageConverter();
+	}
+
 	public void receiveMessage(SimpleMessage message) {
 		message.setQueue(Constants.RabbitMqQueue.Queues.TOPIC_QUEUE_0);
 		System.out.println("Received <" + message + ">");

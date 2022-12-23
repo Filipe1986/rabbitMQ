@@ -9,10 +9,11 @@
 		<version>2.7.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.filipe</groupId>
-	<artifactId>rabbitmq</artifactId>
+	<artifactId>rabbitmqproject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rabbitmq</name>
+	<name>rabbitmqproject</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,6 +84,21 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<configuration>
+                    <from>
+                        <image>openjdk:8</image>
+                    </from>
+                    <container>
+                        <ports>
+                            <port>8080</port>
+                        </ports>
+                        <format>OCI</format>
+                    </container>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>

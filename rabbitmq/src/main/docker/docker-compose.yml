@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    volumes:
+      - volume-app:/app
+    image: rabbitmqproject:0.0.1-SNAPSHOT
+    depends_on:
+      - rabbitmq
+    ports:
+      - 8080:8080
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    hostname: 'localhost'
+    ports:
+      - 15672:15672
+      - 5672:5672
+      
+volumes:
+  volume-app:

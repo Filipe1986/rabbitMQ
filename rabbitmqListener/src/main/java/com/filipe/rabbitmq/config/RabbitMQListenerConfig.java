@@ -1,6 +1,6 @@
 package com.filipe.rabbitmq.config;
 
-import com.filipe.domain.constants.Constants;
+import com.filipe.domain.constants.Constants.RabbitMqQueue;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -17,16 +17,16 @@ public class RabbitMQListenerConfig {
     @Bean
     Exchange topicExchange(){
         return ExchangeBuilder
-                .topicExchange(Constants.RabbitMqQueue.Exchange.TOPIC_EXCHANGE)
+                .topicExchange(RabbitMqQueue.Exchange.TOPIC_EXCHANGE)
                 .build();
     }
 
     @Bean
     Queue topicQueue(){
 
-        return QueueBuilder.durable(Constants.RabbitMqQueue.Queues.TOPIC_QUEUE)
-                .withArgument("x-dead-letter-exchange", "dLTopicExchange")
-                .withArgument("x-dead-letter-routing-key", "routingKeyDeadLetter").build();
+        return QueueBuilder.durable(RabbitMqQueue.Queues.TOPIC_QUEUE)
+                .withArgument("x-dead-letter-exchange", RabbitMqQueue.Exchange.DL_TOPIC_EXCHANGE)
+                .withArgument("x-dead-letter-routing-key", RabbitMqQueue.RoutingKey.ROUTING_KEY_DEAD_LETTER).build();
     }
 
 
@@ -35,7 +35,7 @@ public class RabbitMQListenerConfig {
         return BindingBuilder
                 .bind(topicQueue())
                 .to(topicExchange())
-                .with(Constants.RabbitMqQueue.RoutingKey.ROUTING_KEY_1)
+                .with(RabbitMqQueue.RoutingKey.ROUTING_KEY_1)
                 .noargs();
     }
 
@@ -49,7 +49,7 @@ public class RabbitMQListenerConfig {
     }
 
     @Bean
-    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+    public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 

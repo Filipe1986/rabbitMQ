@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.filipe</groupId>
-	<artifactId>rabbitmqListener</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>rabbitmqListener</name>
+	<artifactId>rabbitmq-listener</artifactId>
+	<version>0.0.1</version>
+	<name>rabbitmq-listener</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -84,6 +84,11 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.3.0</version>
 			</plugin>
 		</plugins>
 	</build>
